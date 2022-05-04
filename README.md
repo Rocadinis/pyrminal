@@ -1,2 +1,2 @@
 # pyrminal
-Bash Terminal emulator in Python
+Terminal emulator in Python
