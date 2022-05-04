@@ -1,2 +1,2 @@
 # pyrminal
-Terminal emulator in Python
+Extremely lightweight Windows Terminal emulator in Python
