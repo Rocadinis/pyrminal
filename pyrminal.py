@@ -1,5 +1,5 @@
 # (C) Rodrigo Dinis, 2022
-import os
+import os, shutil
 from sys import exit
 user = os.getlogin()
 curDir = os.getcwd()
@@ -67,5 +67,23 @@ while True:
             os.rename(toRename, newName)
         except:
             print("The file was either not found or it already exists")
+    elif command.lower() == "move":
+        try:
+            toMove = input("Move which file? ")
+            targetDir = input("To which directory? ")
+            shutil.move(toMove, targetDir)
+        except:
+            print("Either the file or directory was not found")
+    elif command.lower() == "copy":
+        try:
+            toCopy = input("Copy which file? ")
+            targetDir = input("To which directory? ")
+            shutil.copy(toCopy, targetDir)
+        except:
+            print("Either the file or directory was not found")
+    elif command.lower() == "space":
+        print("Total space on current directory: " + str(shutil.disk_usage(curDir)[0]) + " bytes")
+        print("Used space on current directory: " + str(shutil.disk_usage(curDir)[1]) + " bytes")
+        print("Free space on current directory: " + str(shutil.disk_usage(curDir)[2]) + " bytes")
     else:
         print("command " + command + " was not found")
