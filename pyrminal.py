@@ -1,33 +1,34 @@
 # (C) Rodrigo Dinis, 2022
 import os
+from sys import exit
 user = os.getlogin()
 curDir = os.getcwd()
 os.system("cls")
 print("pyrminal by Rocadinis - May 2022 build\n")
 while True:
     command = input("$" + user + ": ")
-    if command.startswith("echo "):
+    if command.lower().startswith("echo "):
         print(command[5:])
     elif command == "cd":
         print(curDir)
-    elif command.startswith("cd "):
+    elif command.lower().startswith("cd "):
         try:
             newDir = command[3:]
             os.chdir(newDir)
             curDir = os.getcwd()
         except:
             print("No such directory was found")
-    elif command.startswith("mkdir "):
+    elif command.lower().startswith("mkdir "):
         try:
             os.mkdir(command[6:])
         except:
             print("The directory could not be created")
-    elif command.startswith("rmdir "):
+    elif command.lower().startswith("rmdir "):
         try:
             os.rmdir(command[6:])
         except:
             print("No such directory was found")
-    elif command.startswith("type "):
+    elif command.lower().startswith("type "):
         try:
             f = open(command[5:], "r")
             content = f.readlines()
@@ -35,11 +36,11 @@ while True:
             print("") 
         except:
             print("A file with that name was not found")
-    elif command == "cls":
+    elif command.lower() == "cls":
         os.system("cls") #shameful
-    elif command.startswith("title "):
+    elif command.lower().startswith("title "):
         os.system("title " + command[6:]) #less shameful but still
-    elif command == "dir":
+    elif command.lower() == "dir":
         dirs = os.scandir(curDir)
         for thing in dirs:
             if thing.is_dir():
@@ -47,7 +48,7 @@ while True:
             if thing.is_file():
                 print("File -", thing.name)
         print("\n")
-    elif command == "tree":
+    elif command.lower() == "tree":
         dirs = os.scandir(curDir)
         for folder in dirs:
             if folder.is_dir():
@@ -57,5 +58,14 @@ while True:
                     if subthing.is_dir(): print("Folder name -", subthing.name)
                     if subthing.is_file(): print("File name -", subthing.name)
                 print("\n")
+    elif command.lower() == "exit": exit(0)
+    elif command.lower() == "ver": print("pyrminal by Rocadinis - May 2022 build")
+    elif command.lower() == "rename":
+        try:
+            toRename = input("To rename? ")
+            newName = input("New name? ")
+            os.rename(toRename, newName)
+        except:
+            print("The file was either not found or it already exists")
     else:
         print("command " + command + " was not found")
